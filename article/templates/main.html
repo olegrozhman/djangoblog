@@ -1,0 +1,388 @@
+{% load staticfiles %}
+{% load i18n mptt_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Django</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% load bootstrap3 %}
+    <script src="{% bootstrap_jquery_url %}"></script>
+    {% bootstrap_javascript %}
+    {% bootstrap_css %}
+    <style>
+        body {
+        background: #CCCCCC url(/media/images/fon.jpg);
+        background-repeat: inherit;
+        }
+        .fones {
+        background: #f9f8fa
+        }
+        .special-card {
+        background-color: rgba(218, 0, 170, 0.6);
+        }
+.css-adaptive{
+display: block;
+max-width: 100%;
+height: auto;
+}
+
+.wrapper{
+  width:1200px;
+  height:auto;
+  overflow:hidden;
+}
+.wrapper divPanel{
+  width:1000px;
+  height:200px;
+  max-height:300px;
+  border:1px solid;
+  float:left;
+  overflow-y:auto;
+  margin-left:1px;
+}
+.wrapper  navbar{
+  width:90%;
+  text-align:justify;
+  margin:0 auto;
+}
+.notpodcherk:{
+	text-decoration: none
+	}
+.notpodcherk:hover {
+	text-decoration: none
+}
+
+.divPanel {}
+
+.divPanel.notop {padding-top:25px}
+
+.divPanel.nobottom {padding-bottom:0px}
+
+#decorative2{background-color: rgb(50, 50, 50); height: 300px;}
+
+#divLogo {margin-top:10px;margin-bottom:10px; }
+
+#divSiteTitle{font-family: 'Century Gothic', sans-serif; color: rgb(176, 42, 154); font-size: 28px; text-shadow: rgba(0, 0, 0, 0.2) 2px 5px 9px, rgba(255, 255, 255, 0.298039) 0px -5px 35px; line-height: 42px; letter-spacing: 2px; text-transform: uppercase; font-weight: normal; font-style: normal; padding-left: 0px; padding-right: 0px;}
+
+#divTagLine {font-family: 'Century Gothic', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 5px; line-height: 22px; color: rgb(255, 255, 255); text-shadow: none; padding-left: 3px; padding-right: 3px; font-weight: normal; font-style: normal;}
+
+h2 {font-weight: normal; font-style: normal; font-family: 'Source Sans Pro', sans-serif; font-size: 55px; line-height: 45px;}
+
+.navbar .dropdown-menu, .dropdown-menu {background-color: rgb(60, 60, 60); border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;}
+
+.navbar .nav-pills > li > a {margin-left: 2px; margin-right: 2px; padding: 35px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; color: rgb(255, 255, 255); border-bottom-style: none;}
+
+.navbar .nav-pills > li > a:hover, .navbar .nav li.dropdown.open.active > .dropdown-toggle, .navbar .nav-pills > li > a:focus {color: rgb(255, 255, 255); background-color: rgb(176, 42, 154); border-bottom-style: none;}
+
+.navbar .nav-pills > .active > a, .navbar .nav-pills > .active > a:hover, .navbar .nav-pills li.dropdown.open > .dropdown-toggle, .navbar .nav-pills li.dropdown.active > .dropdown-toggle {color: rgb(255, 255, 255); background-color: rgb(176, 42, 154); border-bottom-style: none;}
+
+.navbar .btn-navbar-highlight {display:inline;padding:9px 14px;margin-top:15px;}
+
+.btn-primary {border:1px solid #9d2589;border-bottom:1px solid #7b1d6c;background-color:#b02a9a;background-repeat: repeat-x;background-image:-webkit-gradient(linear, left top, left bottom, from(#b02a9a), to(#9e268b));background-image:-webkit-linear-gradient(top, #b02a9a, #9e268b);background-image:-moz-linear-gradient(top, #b02a9a, #9e268b);background-image:-ms-linear-gradient(top, #b02a9a, #9e268b);background-image:-o-linear-gradient(top, #b02a9a, #9e268b);background-image:linear-gradient(top, #b02a9a, #9e268b);filter: progid:dximagetransform.microsoft.gradient(startColorstr=#b02a9a, endColorstr=#9e268b, GradientType=0);filter: progid:dximagetransform.microsoft.gradient(enabled=false);}
+
+.ddmenu.nav-pills li a {font-family: 'Source Sans Pro', sans-serif; font-size: 17px; text-shadow: none; line-height: 15px;}
+
+.ddmenu .dropdown-menu li a {line-height: 29px; font-size: 15px; font-family: 'Source Sans Pro', sans-serif;}
+
+
+ol {  list-style:none;}
+.marker {list-style: none;}
+.marker > li:before {content: '<< ';}
+.marker > ul:before {content: '<< ';}
+
+
+#breadcrumb {
+  list-style: none;
+  display: inline-block;
+  padding-left: 0px;
+}
+#breadcrumb li {
+  float: center;
+}
+#breadcrumb li a {
+  color: #fff;
+  display: inline-block;
+  background-color: rgba(218, 0, 170, 0.01);
+  text-decoration: none;
+  position: relative;
+  height: 34px;
+  line-height: 34px;
+  padding: 0 10px 0 5px;
+  text-align: center;
+  margin-right: 23px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#breadcrumb li:first-child a {
+  padding-left: 15px;
+  -moz-border-radius: 4px 0 0 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px 0 0 4px;
+}
+#breadcrumb li:last-child a {
+  padding-right: 15px;
+  -moz-border-radius: 0 4px 4px 0;
+  -webkit-border-radius: 0;
+  border-radius: 0 4px 4px 0;
+}
+#breadcrumb li a:before {
+  left: 0px;
+  border-left-color: transparent;
+  text-align: center;
+}
+#breadcrumb li a:after {
+  text-align: center;
+  border-color: transparent;
+  border-left-color: #cc2eaa;
+}
+#breadcrumb li a:hover {
+  background-color: #a22587;
+}
+#breadcrumb li a:hover:before {
+  border-color: rgba(218, 0, 170, 0.6);
+  border-left-color: transparent;
+}
+#breadcrumb li a:hover:after {
+  border-left-color: #a22587;
+}
+#breadcrumb li a:active:before {
+  border-color: #a22587;
+  border-left-color: transparent;
+}
+
+
+
+#divFooter{font-family: 'Open Sans', sans-serif; background-color: #f9f8fa; color: #000000; padding-top: 100px; line-height: 22px; font-size: 12px; text-transform: none; background-image: none; background-repeat: repeat repeat;}
+
+#divFooter a{color: rgb(164, 39, 143);}
+
+#divFooter h3{color: rgb(0, 0, 0);}
+
+#footerOuterSeparator{margin-top: 300px; border-top-width: 0px; border-top-style: solid; border-top-color: rgb(95, 95, 95);}
+
+#divFooter {margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;}
+
+#divFooter {margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;}
+
+.social_bookmarks a {font-size:smaller !important;text-transform:uppercase;letter-spacing:1px;text-decoration:none;margin-right:20px;}
+
+.copyright {font-size:smaller;letter-spacing:1px;}
+
+ul#contact-info .field {font-weight:bold;}
+
+ul#contact-info {list-style:none;}
+
+form {
+    margin: 0 auto;
+    max-width: 95%;
+    padding: 30px 30px 6px 30px;
+    border: 1px solid rgba(0,0,0,.2);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background: rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
+    box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
+    overflow: hidden;
+    color: #000;
+}
+input {
+    width: 100%;
+    height: 48px;
+    border: 1px solid rgba(255,255,255,.4);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    display:block;
+    font-family: 'Open Sans', sans-serif;
+    font-size:18px;
+    font-weight: 300;
+    color:#000;
+    padding-left:20px;
+    padding-right:20px;
+    margin-bottom:20px;
+}
+input[type=submit] {
+    width: 100%;
+    cursor:pointer;
+}
+
+.thumb-wrap {
+  position: relative;
+  padding-bottom: 56.25%; /* задаёт высоту контейнера для 16:9 (если 4:3 — поставьте 75%) */
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+.thumb-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+ ul.pagination li a.active {
+     background-color: #330011;
+     color: white;
+     border: 1px solid #990066;
+ }
+
+  ul.pagination li a:hover:not(.active) {background-color: #a22587;}
+
+</style>
+</head>
+<body>
+<div id="decorative2">
+    <div class="container">
+        <div class="divPanel topArea notop nobottom">
+        <div class="row-fluid">
+            <div class="pull-top">
+                        <a href="https://vk.com/oleg_rozhok" id="divSiteTitle" class="notpodcherk">Oleg Rozhok</a><br />
+                        <a href="https://vk.com/video-41355314_456239038" id="divTagLine" class="notpodcherk">b.free</a>
+            </div>
+                    <div id="divMenuRight" class="pull-left">
+                    <div class="navbar">
+                        <button type="button" class="btn btn-navbar-highlight btn-large btn-primary" data-toggle="collapse" data-target=".nav-collapse">
+                            NAVIGATION
+                        </button>
+                            <div class="nav-collapse collapse">
+                            <ul class="nav nav-pills ddmenu">
+                                <li class="dropdown-menu"><a href="/category/get/1"><h3><span class=" glyphicon glyphicon-home"></span> Main</h3></a></li>
+                                <li class="dropdown-menu"><a href="/admin/"><h3><span class="glyphicon glyphicon-user"> Admin</h3></a></li>
+                                <li class="dropdown-menu active"><a href="/"><h3><span class=" glyphicon glyphicon-list-alt"></span> Blog</h3></a></li>
+                                       {% if username %}
+                                        <li class="dropdown-menu">
+                                            <a href="/auth/logout/"><h3><span class=" glyphicon glyphicon-log-out"></span> Log out, {{ username }}</h3></a>
+                                        {% else %}
+                                        <li class="dropdown-menu">
+                                            <a href="/auth/login/"><h3><span class=" glyphicon glyphicon-log-in"></span> Log in</h3></a>
+                                        {% endif %}
+                                        </li>
+                            </ul>
+                            </div>
+                    </div>
+                    </div>
+        </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="col col-lg-3">
+    <div class="panel panel-body special-card">
+    <ol class="marker" id="breadcrumb">
+    {% recursetree projects %}
+        <li>
+       <a href="/category/get/{{ node.id }}" title="{% blocktrans with project=node %}Show all entries in {{ project }}{% endblocktrans %}">{{ node }}</a>
+        {% if not node.is_leaf_node %}
+        <ul class="project-children project-{{ node.slug }} marker">
+            {{ children }}
+        </ul>
+        {% endif %}
+        </li>
+    {% endrecursetree %}
+    {% if not projects %}
+    <li>
+    {% trans "No projects yet." %}
+    </li>
+    {% endif %}
+    </ol>
+    </div>
+    </div>
+    <div class="col col-lg-9">
+    <div class="panel panel-body fones special-card">
+    {% block article %}{% endblock %}
+    {% block login %}{% endblock %}
+    {% block content %}{% endblock content %}
+    </div>
+    </div>
+    <div class="col col-lg-12">
+    <div class="panel panel-body special-card" id="divTagLine"> Tag cloud:
+        <ol id="breadcrumb">
+    {% for keyword in keywords %}
+            <a id="divTagLine" class="notpodcherk" href="/keyword/{{ keyword.id }}">{{ keyword }}</a>
+    {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+        </ol>
+    </div>
+    </div>
+  </div>
+</div>
+<div id="footerOuterSeparator">
+
+<div id="divFooter">
+
+    <div class="container">
+
+        <div class="divPanel">
+
+            <div class="row-fluid">
+
+               <div class="span1" id="footerArea3">
+
+                    <h3>Sample Content</h3>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s.
+                    </p>
+
+                </div>
+                <div class="span2" id="footerArea4">
+
+                    <h3>Get in Touch</h3>
+
+                    <ul id="contact-info">
+                    <li>
+                        <span class="field">Phone:</span>
+                        <br />
+                        (123) 456 7890 / 456 7891
+                    </li>
+                    <li>
+                        <span class="field">Email:</span>
+                        <br />
+                        <a href="mailto:info@yourdomain.com" title="Email">info@yourdomain.com</a>
+                    </li>
+                    <li>
+                        <span class="field">Address:</span>
+                        <br />
+                        123 Street<br />
+                        12345 City, State<br />
+                        Country
+                    </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <br />
+            <div class="row-fluid">
+                <div class="span3">
+                    <p class="copyright">
+                        Copyright © 2018 Your Company. All Rights Reserved.
+                    </p>
+                    <p class="social_bookmarks">
+                        <a href="https://vk.com/beeroom_volosovo">VK</a>
+                    </p>
+                </div>
+            </div>
+            <br />
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+</body>
+</html>

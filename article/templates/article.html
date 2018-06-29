@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+{% load embed_video_tags %}
+{% block article %}
+{% load mptt_tags %}
+{% load i18n mptt_tags %}
+<div>
+<ul><h4>From category:<a id="divTagLine" class="notpodcherk" href="/category/get/{{ article.category.id }}/">{{ article.category }}</a></h4></ul>
+<h4>{{ article.article_date }}</h4>
+<h3>{% autoescape off%}{{ article.article_title }}{% endautoescape %}</h3>
+<p>{% autoescape off%}{{ article.article_text|linebreaksbr }}{% endautoescape %}</p>
+
+    {% if article.video %}
+    <div class="thumb-wrap">
+    <iframe width="640" height="360" src="{{ article.video }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    {% endif %}
+    </div><br />
+
+    {% if article.article_image %}
+    <div>
+    <img class="css-adaptive" src="{{ MEDIA_URL}}{{ article.article_image.url }}">
+    {% endif %}
+    </div>
+</div>
+<hr>
+<div class="container-fluid special-card">
+  <div class="row-fluid">
+
+    <div class="col col-lg-12">
+    {% if username %}
+        <p><h3>Comments:</h3></p>
+    {% for comment in comments %}
+    <p align="left">{{ comment.comments_author.username}}</p>
+    <p align="right">{{ comment.comments_date }}</p>
+    <p>{% autoescape off%}{{ comment.comments_text|linebreaksbr }}{% endautoescape %}</p><hr>
+    {% endfor %}
+    </div>
+    <div class="col-lg-8">
+    <form action="/articles/addcomment/{{ article.id }}/" method="post">{% csrf_token %}
+        {{ form }}<input type="submit" class="button" value="Add comment">
+    </form>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

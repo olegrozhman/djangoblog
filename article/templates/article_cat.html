@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% load embed_video_tags %}
+
+{% load staticfiles %}
+{% load i18n mptt_tags %}
+{% block article %}
+<ul><h4> Category: {{ category }}</h4></ul>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+        {% for article in category_articles %}
+        <h6>Publication's date: {{ article.article_date }}</h6>
+        <h4><a href="/articles/get/{{ article.id }}/" class="notpodcherk" id="divTagLine">{{ article.article_title}}</a></h4>
+        {% if username %}
+        <p><a href="/articles/addlike/{{ article.id }}/"><img href="/articles/addlike/{{ article.id }}/"><img src="https://media.giphy.com/media/3o72EUVzqzm8V1P9qU/giphy.gif" width="30px" height="30px"></a>{{ article.article_likes }}</p>
+        {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    <hr>
+</div>
+{% endblock %}

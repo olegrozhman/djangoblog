@@ -1,0 +1,14 @@
+ {% extends 'main.html' %}
+
+ {% block login %}
+ <div class="panel panel-default">
+     <div class="fones">
+         <form action="/auth/register/" method="post">
+             {% csrf_token %}
+             {{ form }}
+
+             <input class="btn-primary btn-lg" role="button" type="submit" value="Create account">
+         </form>
+     </div>
+ </div>
+ {% endblock %}
